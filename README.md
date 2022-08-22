@@ -34,7 +34,7 @@ An M5Stack library for rendering avatar faces <https://github.com/meganetaaan/m5
 ---
 ビルド済みファームウェアをM5Burner v3に公開しました。すぐに使ってみたい方はこちらをどうぞ。<br>
 
-![画像2](images/image2.png)<br><br><br>
+![画像2](images/image2.png)<br><br>
 
 ### 使い方 ###
 * M5StickC PlusとスピーカーHatが必要です。<br>
