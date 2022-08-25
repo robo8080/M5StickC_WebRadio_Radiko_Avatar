@@ -531,8 +531,26 @@ void Avatar_setup() {
   cp.set(COLOR_BACKGROUND, PC_WHITE);
   cp.set(COLOR_SECONDARY, PC_WHITE);
   avatar->setColorPalette(cp);
-  avatar->setScale(0.45);
-  avatar->setOffset(-90, 30);
+  switch (M5.getBoard())
+  {
+    case m5::board_t::board_M5StickCPlus:
+      avatar->setScale(0.45);
+      avatar->setOffset(-90, 30);
+      break;
+    case m5::board_t::board_M5StickC:
+      avatar->setScale(0.25);
+      avatar->setOffset(-120, 0);
+      break;
+    case m5::board_t::board_M5Stack:
+    case m5::board_t::board_M5StackCore2:
+      avatar->setScale(0.80);
+      avatar->setOffset(0, 52);
+      break;
+    default:
+      avatar->setScale(0.45);
+      avatar->setOffset(-90, 30);
+      break;
+  }
   avatar->init(); // start drawing
   avatar->addTask(lipSync, "lipSync");
 }
