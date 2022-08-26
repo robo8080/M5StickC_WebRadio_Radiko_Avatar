@@ -543,6 +543,7 @@ void Avatar_setup() {
       break;
     case m5::board_t::board_M5Stack:
     case m5::board_t::board_M5StackCore2:
+    case m5::board_t::board_M5Tough:
       avatar->setScale(0.80);
       avatar->setOffset(0, 52);
       break;
@@ -683,7 +684,8 @@ void setup(void)
   M5.Display.clear();
 
   gfxSetup(&M5.Display);
-  M5.Display.fillRect(0, 61, M5.Display.width(), M5.Display.height(), TFT_WHITE);
+//  M5.Display.fillRect(0, 61, M5.Display.width(), M5.Display.height(), TFT_WHITE);
+  M5.Display.fillRect(0, M5.Display.height()/4+1, M5.Display.width(), M5.Display.height(), TFT_WHITE);
 
 // radiko
   radio.onPlay = [](const char * station_name, const size_t station_idx) {
