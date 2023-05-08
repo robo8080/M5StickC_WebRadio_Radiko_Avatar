@@ -126,6 +126,7 @@ Drawable *Face::getRightEye() { return eyeR; }
 BoundingRect *Face::getBoundingRect() { return boundingRect; }
 
 void Face::draw(DrawContext *ctx) {
+  sprite->createSprite(boundingRect->getWidth(), boundingRect->getHeight());
   sprite->setColorDepth(COLOR_DEPTH);
   sprite->setPaletteColor(1, 0x000000U);    // パレット1番を黒に設定
   sprite->setPaletteColor(2, 0xFFFFFFU);    // パレット2番を白に設定
@@ -140,8 +141,8 @@ void Face::draw(DrawContext *ctx) {
   
   // NOTE: setting below for 1-bit color depth
   sprite->setBitmapColor(ctx->getColorPalette()->get(COLOR_PRIMARY),
-    ctx->getColorPalette()->get(COLOR_BACKGROUND));
-  sprite->createSprite(boundingRect->getWidth(), boundingRect->getHeight());
+  ctx->getColorPalette()->get(COLOR_BACKGROUND));
+//  sprite->createSprite(boundingRect->getWidth(), boundingRect->getHeight());
   if (COLOR_DEPTH != 1) {
     sprite->fillSprite(ctx->getColorPalette()->get(COLOR_BACKGROUND));
   }
