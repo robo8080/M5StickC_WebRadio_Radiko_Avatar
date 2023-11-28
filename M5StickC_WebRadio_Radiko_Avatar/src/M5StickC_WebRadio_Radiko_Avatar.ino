@@ -20,6 +20,9 @@
 #include "RamFace.h"
 #include "PaletteColor.h"
 
+//for C Plus
+#define USE_SPK_HAT2 
+
 int BatteryLevel = -1;
 
 static constexpr uint8_t select_pref = 0;
@@ -563,6 +566,12 @@ void setup(void)
   auto cfg = M5.config();
 
   cfg.external_spk = true;    /// use external speaker (SPK HAT / ATOMIC SPK)
+  // If you want to play sound from HAT Speaker, write this
+  //cfg.external_speaker.hat_spk        = true;
+  // If you want to play sound from HAT Speaker2, write this
+#ifdef USE_SPK_HAT2
+  cfg.external_speaker.hat_spk2 = true;
+#endif
 //cfg.external_spk_detail.omit_atomic_spk = true; // exclude ATOMIC SPK
 //cfg.external_spk_detail.omit_spk_hat    = true; // exclude SPK HAT
 
@@ -580,7 +589,8 @@ void setup(void)
   { /// custom setting
     auto spk_cfg = M5.Speaker.config();
     /// Increasing the sample_rate will improve the sound quality instead of increasing the CPU load.
-    spk_cfg.sample_rate = 144000; // default:64000 (64kHz)  e.g. 48000 , 50000 , 80000 , 96000 , 100000 , 128000 , 144000 , 192000 , 200000
+    //spk_cfg.sample_rate = 144000; // default:64000 (64kHz)  e.g. 48000 , 50000 , 80000 , 96000 , 100000 , 128000 , 144000 , 192000 , 200000
+    spk_cfg.sample_rate = 96000; // default:64000 (64kHz)  e.g. 48000 , 50000 , 80000 , 96000 , 100000 , 128000 , 144000 , 192000 , 200000
     spk_cfg.task_pinned_core = m5spk_task_pinned_core;
     M5.Speaker.config(spk_cfg);
   }
@@ -655,6 +665,7 @@ void setup(void)
     if (ESP_OK == nvs_open("WebRadio", NVS_READONLY, &nvs_handle)) {
       size_t volume;
       nvs_get_u32(nvs_handle, "volume", &volume);
+      if(volume>255) volume = 255;
       M5.Speaker.setVolume(volume);
       M5.Speaker.setChannelVolume(m5spk_virtual_channel, volume);
 
